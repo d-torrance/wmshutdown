@@ -57,7 +57,7 @@ int desliga(void) {
 	FILE *output;
 	char *teste;
 
-	output = popen("/usr/local/bin/Shutdown -h", "r");
+	output = popen("/usr/bin/Shutdown -h", "r");
 	teste = (char*) fgetc(output);
 	while ((int)teste != EOF) {
 		g_print("%c", teste);
@@ -70,7 +70,7 @@ int reinicia(void) {
 	FILE *output;
 	char *teste;
 
-	output = popen("/usr/local/bin/Shutdown -r", "r");
+	output = popen("/usr/bin/Shutdown -r", "r");
 	teste = (char*) fgetc(output);
 	while ((int)teste != EOF) {
 		g_print("%c", teste);

@@ -1,0 +1,14 @@
+Source: wmshutdown
+Section: x11
+Priority: optional
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Build-Depends: debhelper (> 5), libgtk2.0-dev
+Standards-Version: 3.8.0
+
+Package: wmshutdown
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dockapp to shutdown or reboot your machine
+ This is a dock applications for Window Maker that allows you to
+ shutdown or reboot your machine just by clickig a button on desktop
+ and confirming. It's useful just for desktop machines.

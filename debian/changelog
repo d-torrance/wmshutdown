@@ -1,0 +1,52 @@
+wmshutdown (0.2-3) unstable; urgency=low
+
+  * QA upload.
+  * Change build-dep to libgtk2.0-dev.
+    + Makefile: use pkg-config instead of gtk-config.
+
+ -- Barry deFreese <bdefreese@debian.org>  Thu, 19 Feb 2009 12:59:24 -0500
+
+wmshutdown (0.2-2) unstable; urgency=low
+
+  * QA upload.
+  * debian/control
+    - set maintainer to QA group
+    - bump Standards-Version to 3.8.0 (no changes needed)
+    - bump versioned build-dep on debhelper to at least 5
+    - small reformat of short and long descriptions
+    - added ${misc:Depends} to Depends
+  * debian/compat
+    - created with value set to 5
+  * debian/rules
+    - removed configure target, not needed
+    - removed DH_COMPAT
+    - moved compilation into build (from install), where it belong
+    - merged 'rm' into 'dh_clean' call
+    - don't ignore "make clean" errors
+    - removed unneeded and commented dh_* calls
+  * debian/copyright
+    - fixed copyright section
+    - indented copyright, upstream author and license section with 4 spaces
+  * debian/menu
+    - updated section to Applications/System/Administration
+  * debian/{Shutdown.1,wmShutdown.1}
+    - fixed the 'whatis' section
+
+ -- Sandro Tosi <morph@debian.org>  Mon, 08 Dec 2008 13:02:21 +0100
+
+wmshutdown (0.2-1) unstable; urgency=low
+
+  * New upstream release
+  * Closes: #205604: Error in file /usr/lib/menu/wmshutdown
+  * Change maintainer e-mail address
+  * Pseudo manpages has been written
+  * Closes: #252718: New upstream release available (0.2)
+
+ -- Rafal Zawadzki <bluszcz@jabberpl.org>  Sat,  5 Jun 2004 00:09:49 +0200
+
+wmshutdown (0.1-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Rafal Zawadzki <bluszcz@ats.com.pl>  Tue, 23 Jul 2002 21:34:11 +0200
+

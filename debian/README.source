@@ -1,0 +1,7 @@
+Sources for Debian
+------------------
+
+This package uses dpatch. See more information at
+/usr/share/doc/dpatch/README.source.gz
+
+ -- Jari Aalto <jari.aalto@cante.net>, Fri,  4 Dec 2009 12:23:54 +0200

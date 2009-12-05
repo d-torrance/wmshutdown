@@ -2,21 +2,34 @@
 ## /tmp/makefile.patch.dpatch by  <jari.aalto@cante.net>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
-## DP: 
+## DP: e
 ## DP: Author: Jari Aalto <jari.aalto@cante.net>
 ## DP: 
 ## DP: 
-## DP:     Makefile: change name. Use pkg-onfig
+## DP:     Makefile: chnage name. Fix linking
 ## DP:     
 ## DP:     Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 
 @DPATCH@
 
 diff --git a/Makefile b/Makefile
-index 219e871..7eb6a75 100644
+index 219e871..9d9d765 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -8,22 +8,19 @@ clean:
+@@ -1,4 +1,11 @@
+-all:
++
++LDFLAGS  = -Wl,--no-add-needed
++INCFLAGS = -I/usr/include/gtk-2.0
++LIBS	 = -lX11
++
++all: dock shutdown
++
++help:
+ 	@echo "wmShutdown version 0.1 - Rafael V. Aroca <rafael@linuxqos.cjb.net>"
+ 	@echo "Order of makes to install: dock, shutdown, install"
+ 
+@@ -8,22 +15,19 @@ clean:
  	rm -f Shutdown
  
  install:
@@ -41,9 +54,9 @@ index 219e871..7eb6a75 100644
  dock: wmShutdown.c
 -	$(CC) -c -o wmShutdown.o wmShutdown.c `gtk-config --cflags` 
 -	$(CC) -o wmShutdown wmShutdown.o `gtk-config --libs` 
-+	$(CC) -c -o wmShutdown.o wmShutdown.c `pkg-config --cflags`
-+	$(CC) -o wmShutdown wmShutdown.o `pkg-config --libs`
++	$(CC) $(INCFLAGS) -c -o wmShutdown.o wmShutdown.c `pkg-config --cflags gtk+-2.0`
++	$(CC) $(LDFLAGS) -o wmShutdown wmShutdown.o `pkg-config --libs gtk+-2.0` $(LIBS)
  
  shutdown: shutdown.c
 -	$(CC) -o Shutdown shutdown.c 
-+	$(CC) -o Shutdown shutdown.c
++	$(CC) $(LDFLAGS) $(INCFLAGS) -o Shutdown shutdown.c

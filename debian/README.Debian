@@ -1,6 +1,8 @@
-wmShutdown for Debian
------------------
+wmshutdown for Debian
+---------------------
 
-After installation you have to set suid at /sbin/shutdown, 
-You can do this by chmod +s /sbin/shutdown
+After installation you have to set suid at /sbin/wmshutdown with:
 
+    chmod +s /usr/bin/wmshutdown
+
+ -- Jari Aalto <jari.aalto@cante.net>, Sun,  9 Nov 2008 14:13:43 +0200

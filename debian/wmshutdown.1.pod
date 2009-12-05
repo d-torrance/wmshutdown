@@ -1,0 +1,55 @@
+#  This is manual page in Perl POD format. Read more at
+#  http://perldoc.perl.org/perlpod.html or run command:
+#
+#     perldoc perlpod | less
+#
+#  To check the syntax:
+#
+#     podchecker *.pod
+#
+#  Create manual page with command:
+#
+#    pod2man PAGE.N.pod > PAGE.N
+
+=pod
+
+=head1 NAME
+
+wmshutdown - A dock application to shutdown computer
+
+=head1 SYNOPSIS
+
+  wmshutdown
+
+=head1 DESCRIPTION
+
+Wmshutdown is a dock application (e.g. for window manager Window
+Maker) that allows you to shutdown or reboot your machine just by
+clickig a button on your desktop. It's useful just for desktop
+machines, so there's no need to keep typing C<shutdown now -h> every
+time you have to go away for some reason.
+
+=head1 OPTIONS
+
+None.
+
+=head1 ENVIRONMENT
+
+None.
+
+=head1 FILES
+
+None.
+
+=head1 SEE ALSO
+
+wmshutdown-run(1)
+
+=head1 AUTHORS
+
+This manual page was written by Jari Aalto <jari.aalto@cante.net>, for
+the Debian GNU system (but may be used by others). Released under
+license GNU GPL v2 or (at your option) any later version. For more
+information about license, visit <http://www.gnu.org/copyleft/gpl.html>.
+
+=cut

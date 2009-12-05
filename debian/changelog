@@ -1,4 +1,4 @@
-wmshutdown (0.2-4) unstable; urgency=low
+wmshutdown (0.2-4) unstable; urgency=medium
 
   * New maintainer (ITA; Closes: #352440).
     - ACK and integrate previous QA changes
@@ -41,7 +41,7 @@ wmshutdown (0.2-4) unstable; urgency=low
   * Other:
     - Remove old *.1 manual pages and write new ones in *.pod format.
 
- -- Jari Aalto <jari.aalto@cante.net>  Sat, 05 Dec 2009 17:40:08 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 05 Dec 2009 17:42:50 +0200
 
 wmshutdown (0.2-3) unstable; urgency=low
 

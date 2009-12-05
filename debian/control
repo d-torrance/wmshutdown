@@ -1,9 +1,12 @@
 Source: wmshutdown
 Section: x11
 Priority: optional
-Maintainer: Debian QA Group <packages@qa.debian.org>
-Build-Depends: debhelper (> 5), libgtk2.0-dev
-Standards-Version: 3.8.0
+Maintainer: Jari Aalto <jari.aalto@cante.net>
+Build-Depends: debhelper (>= 7), libgtk2.0-dev, dpatch
+Standards-Version: 3.8.3
+Vcs-Git: http://git.debian.org/collab-maint/wmshutdown.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/wmshutdown.git;a=summary
+Homepage: http://www.rafaelaroca.hpg.ig.com.br/bin
 
 Package: wmshutdown
 Architecture: any

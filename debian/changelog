@@ -1,3 +1,39 @@
+wmshutdown (0.2-4) unstable; urgency=low
+
+  * New maintainer (ITA; Closes: #352440).
+    - ACK previous QA changes
+  * debian/README.Debian:
+    - Document change of binary name: wmshutdown, wmshutdown-run
+  * debian/compat:
+    - New file.
+  * debian/control:
+    - (Description): Improve paragraphs.
+    - (Depends): Added dpatch,
+    - (Homepage, Vcs-*): New fields.
+    - (Standards-Version): Update to 3.8.3
+  * debian/copyright:
+    - Update to newest dh-make template.
+    - Update upstream author's email and URL address.
+  * debian/menu:
+    - Update section according to latest policy.
+  * debian/docs:
+    - Remove file.
+  * debian/pod2man.mk
+    - New file.
+  * debian/rules:
+    - Add dpatch and manual page creation.
+    - (clean): use dh_prep (lintian).
+  * debian/patches/10_binary-name-change.dpatch:
+    - New file. Change program names to reflect package:
+      wmShutdown => wmshutdown. Shutdown => wmshutdown-run.
+    - In wmShutdown.c Call new wmshutdown-run, not old Shutdown.
+  * debian/watch:
+    - New file.
+  * Other:
+    - Remove old *.1 manual pages and write new ones in *.pod format.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 05 Dec 2009 13:59:59 +0200
+
 wmshutdown (0.2-3) unstable; urgency=low
 
   * QA upload.
@@ -49,4 +85,3 @@ wmshutdown (0.1-1) unstable; urgency=low
   * Initial Release.
 
  -- Rafal Zawadzki <bluszcz@ats.com.pl>  Tue, 23 Jul 2002 21:34:11 +0200
-

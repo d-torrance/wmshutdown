@@ -2,7 +2,7 @@
 ## /tmp/name-change.patch.dpatch by  <jari.aalto@cante.net>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
-## DP: e7
+## DP: fb
 ## DP: Author: Jari Aalto <jari.aalto@cante.net>
 ## DP: 
 ## DP: 
@@ -13,7 +13,7 @@
 @DPATCH@
 
 diff --git a/wmShutdown.c b/wmShutdown.c
-index 7f7e14e..85abc77 100644
+index 7f7e14e..f03f4b9 100644
 --- a/wmShutdown.c
 +++ b/wmShutdown.c
 @@ -57,7 +57,7 @@ int desliga(void) {
@@ -30,7 +30,7 @@ index 7f7e14e..85abc77 100644
  	char *teste;
  
 -	output = popen("/usr/local/bin/Shutdown -r", "r");
-+	output = popen("/usr/bin/wsmhutdown-run -r", "r");
++	output = popen("/usr/bin/wmshutdown-run -r", "r");
  	teste = (char*) fgetc(output);
  	while ((int)teste != EOF) {
  		g_print("%c", teste);

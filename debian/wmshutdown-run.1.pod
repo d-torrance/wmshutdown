@@ -23,9 +23,9 @@ wmshutdown - suid program called by wmshutdown(1) to call /sbin/shutdown
 
 =head1 DESCRIPTION
 
-Wmshutdown-run is helper program for wmshutdown(1) that allows user to
-shutdown or reboot the workstation just by clickig a button on your
-desktop.
+Wmshutdown-run is helper program for graphical dock application
+wmshutdown(1) that allows user to shutdown or reboot the workstation just by
+clickig a button on the desktop.
 
 =head1 OPTIONS
 

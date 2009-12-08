@@ -55,7 +55,9 @@ install: build
 	$(MAKE) dock shutdown
 
 	$(MAKE) install DESTDIR=$(PKGDIR)
-	chmod ug+s $(BINDIR)/$(PACKAGE)
+
+	# See debian/README.Debian
+	# chmod ug+s $(BINDIR)/$(PACKAGE)
 
 # Build architecture-independent files here.
 binary-indep: build install

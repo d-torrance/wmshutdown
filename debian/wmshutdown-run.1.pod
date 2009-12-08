@@ -41,7 +41,7 @@ None.
 
 =head1 SEE ALSO
 
-wmshutdown-run(1x)
+wmshutdown-run(1)
 
 =head1 AUTHORS
 

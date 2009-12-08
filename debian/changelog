@@ -4,6 +4,8 @@ wmshutdown (0.2-4) unstable; urgency=medium
     - ACK and integrate previous QA changes
   * debian/README.Debian
     - Document change of binary name: wmshutdown, wmshutdown-run
+  * debian/README.Debian
+    - Instruct how to disable shutdown-run(1) from other users than root.
   * debian/compat
     - New file.
   * debian/control
@@ -41,7 +43,7 @@ wmshutdown (0.2-4) unstable; urgency=medium
   * Other:
     - Remove old *.1 manual pages and write new ones in *.pod format.
 
- -- Jari Aalto <jari.aalto@cante.net>  Sat, 05 Dec 2009 17:42:50 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 08 Dec 2009 13:58:06 +0200
 
 wmshutdown (0.2-3) unstable; urgency=low
 

@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-wmshutdown - A dock application to shutdown computer
+wmshutdown - A graphical dock application to shutdown computer
 
 =head1 SYNOPSIS
 
@@ -23,11 +23,9 @@ wmshutdown - A dock application to shutdown computer
 
 =head1 DESCRIPTION
 
-Wmshutdown is a dock application (e.g. for window manager Window
-Maker) that allows you to shutdown or reboot your machine just by
-clickig a button on your desktop. It's useful just for desktop
-machines, so there's no need to keep typing C<shutdown now -h> every
-time you have to go away for some reason.
+Wmshutdown is a dock application (for window manager) that can shutdown or
+reboot the workstation by clickig a button on the desktop.  It effectively
+calls C<shutdown now -h> via a helper command wmshutdown-run(1).
 
 =head1 OPTIONS
 

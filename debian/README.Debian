@@ -1,7 +1,7 @@
 wmshutdown for Debian
 ---------------------
 
-After installation you have to set suid at /sbin/wmshutdown with:
+To allow other users than root to shutdown workstation, set suid flag:
 
     chmod +s /usr/bin/wmshutdown
 

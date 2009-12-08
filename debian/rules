@@ -56,7 +56,9 @@ install: build
 
 	$(MAKE) install DESTDIR=$(PKGDIR)
 
-	chmod ug+s $(BINDIR)/$(PACKAGE2)
+	# Won't make a difference: .deb will not preserve this
+	# See README.Debian
+	# chmod ug+s $(BINDIR)/$(PACKAGE2)
 
 # Build architecture-independent files here.
 binary-indep: build install

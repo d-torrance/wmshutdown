@@ -1,8 +1,8 @@
 wmshutdown for Debian
 ---------------------
 
-To allow other users than root to shutdown workstation, set suid flag:
+To disable other users than root to shutdown workstation, reset suid flag:
 
-    chmod +s /usr/bin/wmshutdown*
+    chmod ug-s /usr/bin/wmshutdown-run
 
- -- Jari Aalto <jari.aalto@cante.net>, Sun,  9 Nov 2008 14:13:43 +0200
+ -- Jari Aalto <jari.aalto@cante.net>, Tue,  8 Dec 2009 13:56:15 +0200

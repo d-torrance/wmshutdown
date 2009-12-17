@@ -1,23 +1,27 @@
-From 8037d93bbfa703e6d1a05563823e30f569ebbecf Mon Sep 17 00:00:00 2001
+From 6770107f24a14e944cd1c9c097db416f58431036 Mon Sep 17 00:00:00 2001
 From: Jari Aalto <jari.aalto@cante.net>
-Date: Sat, 5 Dec 2009 17:31:33 +0200
-Subject: [PATCH] Makefile: chnage name. Fix linking
+Date: Thu, 17 Dec 2009 14:20:10 +0200
+Subject: [PATCH] Makefile: Change name. Fix linking with GTK+
 
 Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 ---
- Makefile |   28 ++++++++++++++++------------
- 1 files changed, 16 insertions(+), 12 deletions(-)
+ Makefile |   32 ++++++++++++++++++++------------
+ 1 files changed, 20 insertions(+), 12 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 219e871..9d9d765 100644
+index 219e871..678fda4 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,4 +1,11 @@
+@@ -1,4 +1,15 @@
 -all:
 +
-+LDFLAGS  = -Wl,--no-add-needed
++LDFLAGS  = -Wl,--no-add-needed -Wl,--no-undefined
 +INCFLAGS = -I/usr/include/gtk-2.0
 +LIBS	 = -lX11
++
++# The listing "pkg-config --libs gtk+-2.0" can be trimmed down to needed libs
++GTKLIBS  =  $(shell perl -e' print join qq( ), grep /(-x11|gobject|glib)/, @ARGV' -- $$(pkg-config --libs gtk+-2.0) )
++GTKFLAGS = `pkg-config --cflags gtk+-2.0`
 +
 +all: dock shutdown
 +
@@ -25,7 +29,7 @@ index 219e871..9d9d765 100644
  	@echo "wmShutdown version 0.1 - Rafael V. Aroca <rafael@linuxqos.cjb.net>"
  	@echo "Order of makes to install: dock, shutdown, install"
  
-@@ -8,22 +15,19 @@ clean:
+@@ -8,22 +19,19 @@ clean:
  	rm -f Shutdown
  
  install:
@@ -50,8 +54,8 @@ index 219e871..9d9d765 100644
  dock: wmShutdown.c
 -	$(CC) -c -o wmShutdown.o wmShutdown.c `gtk-config --cflags` 
 -	$(CC) -o wmShutdown wmShutdown.o `gtk-config --libs` 
-+	$(CC) $(INCFLAGS) -c -o wmShutdown.o wmShutdown.c `pkg-config --cflags gtk+-2.0`
-+	$(CC) $(LDFLAGS) -o wmShutdown wmShutdown.o `pkg-config --libs gtk+-2.0` $(LIBS)
++	$(CC) $(INCFLAGS) $(GTKFLAGS) -c -o wmShutdown.o wmShutdown.c
++	$(CC) $(LDFLAGS) -o wmShutdown wmShutdown.o $(GTKLIBS) $(LIBS)
  
  shutdown: shutdown.c
 -	$(CC) -o Shutdown shutdown.c 

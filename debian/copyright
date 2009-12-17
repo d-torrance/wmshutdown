@@ -1,11 +1,11 @@
-This package was first debianized by Rafal Zawadzki <bluszcz@ats.com.pl> on
-2002-12-23 21:34:11+02 Tue.
+This package was first debianized by:
+
+    Rafal Zawadzki <bluszcz@ats.com.pl> on 2002-12-23 21:34:11+02 Tue.
 
 It was downloaded from
 
     http://www.rafaelaroca.hpg.ig.com.br/bin
-
-    As of 2009-11-28 the package no longer exists.
+    As of 2009-11-28 the package no longer exists there.
 
 Upstream Author:
 
@@ -30,8 +30,7 @@ License:
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this package; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 The Debian packaging is licensed under the GPL, see below, and is:
 
@@ -39,4 +38,4 @@ The Debian packaging is licensed under the GPL, see below, and is:
     Copyright (C) 2002      Rafal Zawadzki <bluszcz@ats.com.pl>
 
 On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL-2'.
+Public License can be found in "/usr/share/common-licenses/GPL-2".

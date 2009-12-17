@@ -1,0 +1,61 @@
+From 8037d93bbfa703e6d1a05563823e30f569ebbecf Mon Sep 17 00:00:00 2001
+From: Jari Aalto <jari.aalto@cante.net>
+Date: Sat, 5 Dec 2009 17:31:33 +0200
+Subject: [PATCH] Makefile: chnage name. Fix linking
+
+Signed-off-by: Jari Aalto <jari.aalto@cante.net>
+---
+ Makefile |   28 ++++++++++++++++------------
+ 1 files changed, 16 insertions(+), 12 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 219e871..9d9d765 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,11 @@
+-all:
++
++LDFLAGS  = -Wl,--no-add-needed
++INCFLAGS = -I/usr/include/gtk-2.0
++LIBS	 = -lX11
++
++all: dock shutdown
++
++help:
+ 	@echo "wmShutdown version 0.1 - Rafael V. Aroca <rafael@linuxqos.cjb.net>"
+ 	@echo "Order of makes to install: dock, shutdown, install"
+ 
+@@ -8,22 +15,19 @@ clean:
+ 	rm -f Shutdown
+ 
+ install:
+-	install wmShutdown /usr/local/bin
+-	install wmShutdown.xpm /usr/share/pixmaps/
+-	install -g root -o root Shutdown /usr/local/bin
+-	chmod +s /sbin/shutdown
+-	chmod +s /usr/local/bin/Shutdown
+-	@echo Installed. Just type wmShutdown to use it
++	install -m 755 wmShutdown $(DESTDIR)/usr/bin/wmshutdown
++	install -m 644 wmShutdown.xpm $(DESTDIR)/usr/share/pixmaps/wmshutdown.xpm
++	install -m 755 Shutdown $(DESTDIR)/usr/bin/wmshutdown-run
+ 
+ uninstall:
+-	rm -f /usr/local/bin/wmShutdown
+-	rm -f /usr/local/bin/Shutdown
++	rm -f /bin/wmShutdown
++	rm -f /bin/Shutdown
+ 	rm -f /usr/share/pixmaps/wmShutdown.xpm
+ 	@echo ":-( Uninstalled."
+ 
+ dock: wmShutdown.c
+-	$(CC) -c -o wmShutdown.o wmShutdown.c `gtk-config --cflags` 
+-	$(CC) -o wmShutdown wmShutdown.o `gtk-config --libs` 
++	$(CC) $(INCFLAGS) -c -o wmShutdown.o wmShutdown.c `pkg-config --cflags gtk+-2.0`
++	$(CC) $(LDFLAGS) -o wmShutdown wmShutdown.o `pkg-config --libs gtk+-2.0` $(LIBS)
+ 
+ shutdown: shutdown.c
+-	$(CC) -o Shutdown shutdown.c 
++	$(CC) $(LDFLAGS) $(INCFLAGS) -o Shutdown shutdown.c
+-- 
+1.6.5
+

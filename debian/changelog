@@ -1,3 +1,25 @@
+wmshutdown (0.2-5) unstable; urgency=low
+
+  * Move to format: 3.0 (quilt).
+  * debian/{clean,manpages}
+    - Move content from debian/rules for dh(1).
+  * debian/control
+    (Build-Depends): Remove dpatch.
+  * debian/copyright
+    - Minor layout adjustment. Use FSF URL.
+  * debian/debian-vars.mk
+    - Delete, obsoleted by dh(1).
+  * debian/patches
+    - Convert to quilt.
+    - (30): New patch to fix "cast to pointer from integer of
+      different size" warnings.
+  * debian/README.source
+    - Delete, obsoleted by format 3.0.
+  * debian/rules
+    - Remove rules obsoleted by dh(1).
+
+ -- Jari Aalto <jari.aalto@cante.net>  Thu, 17 Dec 2009 12:24:08 +0200
+
 wmshutdown (0.2-4) unstable; urgency=medium
 
   * New maintainer (ITA; Closes: #352440).

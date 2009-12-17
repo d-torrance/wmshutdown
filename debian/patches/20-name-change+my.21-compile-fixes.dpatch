@@ -1,0 +1,99 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## /tmp/name-change+my.21-compile-fixes.patch.dpatch by  <jari.aalto@cante.net>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: f9
+## DP: Author: Jari Aalto <jari.aalto@cante.net>
+## DP: 
+## DP: 
+## DP:     Fix cast to pointer from integer warnings
+## DP:     
+## DP:     Signed-off-by: Jari Aalto <jari.aalto@cante.net>
+
+@DPATCH@
+
+diff --git a/shutdown.c b/shutdown.c
+index 857c410..91aec34 100644
+--- a/shutdown.c
++++ b/shutdown.c
+@@ -14,29 +14,29 @@ int main(int argc, char **argv) {
+ 	if (argv[1] != NULL) {
+ 
+ 		if (strcmp((char*)argv[1], "-r") == 0) {
+-			char *teste;
++			int ch;
+ 			FILE *output;
+ 
+ 			printf("Rebooting...\n");
+ 			output = popen("/sbin/shutdown now -r", "r");
+-			teste = (char*) fgetc(output);
+-			while ((int)teste != EOF) {
+-				printf("%c", teste);
+-				teste = (char*) fgetc(output);
++			ch = fgetc(output);
++			while (ch != EOF) {
++				printf("%c", ch);
++				ch = fgetc(output);
+ 			}
+ 			pclose(output);
+ 		} 
+ 		
+ 		if (strcmp(argv[1], "-h") == 0) {
+-			char *teste;
++			int ch;
+ 			FILE *output;
+ 
+ 			printf("Halting...\n");
+ 			output = popen("/sbin/shutdown now -h", "r");
+-			teste = (char*) fgetc(output);
+-			while ((int)teste != EOF) {
+-				printf("%c", teste);
+-				teste = (char*) fgetc(output);
++			ch = fgetc(output);
++			while (ch != EOF) {
++				printf("%c", ch);
++				ch = fgetc(output);
+ 			}
+ 			pclose(output);
+ 		} 
+diff --git a/wmShutdown.c b/wmShutdown.c
+index f03f4b9..a019025 100644
+--- a/wmShutdown.c
++++ b/wmShutdown.c
+@@ -55,26 +55,26 @@ int fecha(void) {
+ 
+ int desliga(void) {
+ 	FILE *output;
+-	char *teste;
++	int ch;
+ 
+ 	output = popen("/usr/bin/wmshutdown -h", "r");
+-	teste = (char*) fgetc(output);
+-	while ((int)teste != EOF) {
+-		g_print("%c", teste);
+-		teste = (char*) fgetc(output);
++	ch = fgetc(output);
++	while (ch != EOF) {
++		g_print("%c", ch);
++		ch = fgetc(output);
+ 	}
+ 	pclose(output);
+ }
+ 
+ int reinicia(void) {
+ 	FILE *output;
+-	char *teste;
++	int ch;
+ 
+ 	output = popen("/usr/bin/wmshutdown-run -r", "r");
+-	teste = (char*) fgetc(output);
+-	while ((int)teste != EOF) {
+-		g_print("%c", teste);
+-		teste = (char*) fgetc(output);
++	ch = fgetc(output);
++	while (ch != EOF) {
++		g_print("%c", ch);
++		ch = fgetc(output);
+ 	}
+ 	pclose(output);
+ }

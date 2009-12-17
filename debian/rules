@@ -68,7 +68,7 @@ binary: binary-arch
 %:
 	dh $@
 
-.PHONY: man install configure
+.PHONY: man configure install
 .PHONY: binary-indep binary-arch binary
 
 # End of file

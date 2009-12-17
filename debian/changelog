@@ -11,6 +11,7 @@ wmshutdown (0.2-5) unstable; urgency=low
     - Delete, obsoleted by dh(1).
   * debian/patches
     - Convert to quilt.
+    - (10): Adjust link flags and add trimmed down GTKLIBS.
     - (30): New patch to fix "cast to pointer from integer of
       different size" warnings.
   * debian/README.source
@@ -18,7 +19,7 @@ wmshutdown (0.2-5) unstable; urgency=low
   * debian/rules
     - Remove rules obsoleted by dh(1).
 
- -- Jari Aalto <jari.aalto@cante.net>  Thu, 17 Dec 2009 12:24:08 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Thu, 17 Dec 2009 14:21:08 +0200
 
 wmshutdown (0.2-4) unstable; urgency=medium
 

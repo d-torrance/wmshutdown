@@ -5,9 +5,7 @@
 
 PACKAGE 	= wmshutdown
 PACKAGE2	= wmshutdown-run
-
-include debian/debian-vars.mk
-include /usr/share/dpatch/dpatch.make
+PKGDIR		= $(CURDIR)/debian/$(PACKAGE)
 
 MANSECT         = 1
 MANPAGE1        = debian/$(PACKAGE).$(MANSECT)
@@ -22,29 +20,7 @@ man:
 	$(MAKE) -C debian -f $(MK_MAN) PACKAGE=$(PACKAGE2) \
 	MANSECT=$(MANSECT) makeman
 
-.PHONY: man
-
-build-stamp: man
-	# target: build-stamp
-	dh_testdir
-	$(MAKE)
-	touch build-stamp
-
-build: patch build-stamp man
-
-clean: unpatch
-	# target: clean
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
-
-	rm -f wmshutdown-run wmshutdown
-	[ ! -f Makefile ] || $(MAKE) clean
-
-	rm -f debian/*.$(MANSECT)
-	dh_prep
-
-install: build
+install: build man
 	# target: install
 	dh_testdir
 	dh_testroot
@@ -53,21 +29,16 @@ install: build
 
 	$(MAKE) install DESTDIR=$(PKGDIR)
 
-	# Won't make a difference: .deb will not preserve this
-	# See README.Debian
-	# chmod ug+s $(BINDIR)/$(PACKAGE2)
+	# Won't make a difference: *.deb will not preserve this.
+	#   chmod ug+s $(BINDIR)/$(PACKAGE2)
+	# Instructions recorded in README.Debian
 
-# Build architecture-independent files here.
-binary-indep: build install
-	# We have nothing to do by default.
-
-# Build architecture-dependent files here.
 binary-arch: build install
-	# target: binary-arch
+	# target: binary-arch -- Build architecture-dependent files
 	dh_testdir
 	dh_testroot
 #	dh_installdebconf
-	dh_installdocs README
+	dh_installdocs
 #	dh_installexamples
 	dh_installmenu
 #	dh_installlogrotate
@@ -76,7 +47,7 @@ binary-arch: build install
 #	dh_installmime
 #	dh_installinit
 	dh_installcron
-	dh_installman debian/*.$(MANSECT)
+	dh_installman
 	dh_installinfo
 #	dh_undocumented
 	dh_installchangelogs ChangeLog
@@ -92,6 +63,12 @@ binary-arch: build install
 	dh_md5sums
 	dh_builddeb
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
-.PHONY: man
+binary: binary-arch
+
+%:
+	dh $@
+
+.PHONY: man install configure
+.PHONY: binary-indep binary-arch binary
+
+# End of file

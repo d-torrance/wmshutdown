@@ -1,3 +1,18 @@
+wmshutdown (0.2-6) unstable; urgency=low
+
+  * debian/compat
+    - Update to 9
+  * debian/control
+    - (Build-Depends): update to debhelper 9, dpkg-dev 1.16.1.
+  * debian/copyright
+    - Update to DEP5.
+  * debian/rules
+    - Remove unused targets.
+    - Use hardened CFLAGS.
+      http://wiki.debian.org/ReleaseGoals/SecurityHardeningBuildFlags
+
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 15 Feb 2012 08:16:19 -0500
+
 wmshutdown (0.2-5) unstable; urgency=low
 
   * Move to format: 3.0 (quilt).

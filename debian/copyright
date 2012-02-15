@@ -1,41 +1,81 @@
-This package was first debianized by:
+Format: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=174
+X-Format: http://dep.debian.net/deps/dep5
+Upstream-Name:
+Upstream-Contact: Rafael Vidal Aroca <rafaelaroca@users.sf.net>
+Source: None
+X-Comment:
+ Dead upstream.
+ 2009-11-28 Sources no longer at <http://www.rafaelaroca.hpg.ig.com.br/bin>.
 
-    Rafal Zawadzki <bluszcz@ats.com.pl> on 2002-12-23 21:34:11+02 Tue.
-
-It was downloaded from
-
-    http://www.rafaelaroca.hpg.ig.com.br/bin
-    As of 2009-11-28 the package no longer exists there.
-
-Upstream Author:
-
-    Rafael Vidal Aroca <rafaelaroca@users.sf.net>, <rafael@3WT.com.br>
-    <rafael@gds-corp.com>, <rafael@3WT.com.br>,
-    <rafael@netlocal.com.br>, <rva@grad.icmc.usp.br>
-
+Files: *
 Copyright:
+ 2002-2007 Rafael Vidal Aroca <rafaelaroca@users.sf.net>, <rafael@3WT.com.br>
+ <rafael@gds-corp.com>, <rafael@3WT.com.br>,
+ <rafael@netlocal.com.br>, <rva@grad.icmc.usp.br>
+License: GPL-2+
 
-    Copyright (C) 2002-2007 Rafael Vidal Aroca <rafaelaroca@users.sf.net>
+Files: debian/*
+Copyright:
+  2007-2012 Jari Aalto <jari.aalto@cante.net>
+  2002      Rafal Zawadzki <bluszcz@ats.com.pl>
+License: GPL-2+
 
-License:
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License can be found in "/usr/share/common-licenses/GPL-2".
 
-    This package is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License can be found in "/usr/share/common-licenses/GPL-3".
 
-    This package is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+License: LGPL-2+
+ This package is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU Library General
+ Public License can be found in "/usr/share/common-licenses/LGPL-2".
 
-    You should have received a copy of the GNU General Public License
-    along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-The Debian packaging is licensed under the GPL, see below, and is:
-
-    Copyright (C) 2007-2009 Jari Aalto <jari.aalto@cante.net>
-    Copyright (C) 2002      Rafal Zawadzki <bluszcz@ats.com.pl>
-
-On Debian systems, the complete text of the GNU General
-Public License can be found in "/usr/share/common-licenses/GPL-2".
+License: GFDL-1.3+
+ Permission is granted to copy, distribute and/or modify this document
+ under the terms of the GNU Free Documentation License, Version 1.3
+ or any later version published by the Free Software Foundation;
+ with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License can be found in "/usr/share/common-licenses/GFDL-1.3".

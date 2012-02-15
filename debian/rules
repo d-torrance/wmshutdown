@@ -1,74 +1,27 @@
 #!/usr/bin/make -f
 
-# Uncomment this to turn on verbose mode.
-# export DH_VERBOSE=1
-
-PACKAGE 	= wmshutdown
+PACKAGE		= wmshutdown
 PACKAGE2	= wmshutdown-run
-PKGDIR		= $(CURDIR)/debian/$(PACKAGE)
 
-MANSECT         = 1
-MANPAGE1        = debian/$(PACKAGE).$(MANSECT)
-MANPAGE2        = debian/$(PACKAGE2).$(MANSECT)
-MK_MAN  	= pod2man.mk
+MANPAGE1	= debian/$(PACKAGE).$(MANSECT)
+MANPAGE2	= debian/$(PACKAGE2).$(MANSECT)
+
+include /usr/share/dpkg/buildflags.mk
+CFLAGS	+= -Wall -pedantic
+LDFLAGS += -Wl,--as-needed
+export CFLAGS LDFLAGS
 
 man:
 	# Commands to build manual pages
-	$(MAKE) -C debian -f $(MK_MAN) PACKAGE=$(PACKAGE) \
-	MANSECT=$(MANSECT) makeman
+	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
+	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE2) makeman
 
-	$(MAKE) -C debian -f $(MK_MAN) PACKAGE=$(PACKAGE2) \
-	MANSECT=$(MANSECT) makeman
-
-install: build man
-	# target: install
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
-
-	$(MAKE) install DESTDIR=$(PKGDIR)
-
-	# Won't make a difference: *.deb will not preserve this.
-	#   chmod ug+s $(BINDIR)/$(PACKAGE2)
-	# Instructions recorded in README.Debian
-
-binary-arch: build install
-	# target: binary-arch -- Build architecture-dependent files
-	dh_testdir
-	dh_testroot
-#	dh_installdebconf
-	dh_installdocs
-#	dh_installexamples
-	dh_installmenu
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_installinit
-	dh_installcron
-	dh_installman
-	dh_installinfo
-#	dh_undocumented
-	dh_installchangelogs ChangeLog
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-#	dh_makeshlibs
-	dh_installdeb
-#	dh_perl
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-arch
+override_dh_auto_build: man
+	dh_auto_build
 
 %:
 	dh $@
 
-.PHONY: man configure install
-.PHONY: binary-indep binary-arch binary
+.PHONY: man
 
 # End of file

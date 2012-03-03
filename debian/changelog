@@ -1,3 +1,18 @@
+wmshutdown (0.2-7) unstable; urgency=low
+
+  * debian/control
+    - Build-Depends: rm dpkg-dev.
+    - (Standards-Version): Update to 3.9.3
+  * debian/patches
+    - (10): Adjust patch to actually use LDFLAGS and CFLAGS to
+      enable hardened CFLAGS. Patch thanks to Simon Ruderich
+      <simon@ruderich.org> (Closes: #662010).
+  * debian/rules
+    - Remove buildflags.mk which is unnecessary with compat 9.
+      Patch thanks to Simon Ruderich <simon@ruderich.org>.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 03 Mar 2012 10:53:24 -0500
+
 wmshutdown (0.2-6) unstable; urgency=low
 
   * debian/compat

@@ -3,6 +3,9 @@ From: Jari Aalto <jari.aalto@cante.net>
 Date: Thu, 17 Dec 2009 14:20:10 +0200
 Subject: [PATCH] Makefile: Change name. Fix linking with GTK+
 
+Also use CFLAGS, CPPFLAGS, LDFLAGS from the environment. Necessary to use
+(hardening) compiler flags specified by dh.
+
 Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 ---
  Makefile |   32 ++++++++++++++++++++------------
@@ -15,7 +18,7 @@ index 219e871..678fda4 100644
 @@ -1,4 +1,15 @@
 -all:
 +
-+LDFLAGS  = -Wl,--no-add-needed -Wl,--no-undefined
++LDFLAGS += -Wl,--no-add-needed -Wl,--no-undefined
 +INCFLAGS = -I/usr/include/gtk-2.0
 +LIBS	 = -lX11
 +
@@ -54,12 +57,12 @@ index 219e871..678fda4 100644
  dock: wmShutdown.c
 -	$(CC) -c -o wmShutdown.o wmShutdown.c `gtk-config --cflags` 
 -	$(CC) -o wmShutdown wmShutdown.o `gtk-config --libs` 
-+	$(CC) $(INCFLAGS) $(GTKFLAGS) -c -o wmShutdown.o wmShutdown.c
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(INCFLAGS) $(GTKFLAGS) -c -o wmShutdown.o wmShutdown.c
 +	$(CC) $(LDFLAGS) -o wmShutdown wmShutdown.o $(GTKLIBS) $(LIBS)
  
  shutdown: shutdown.c
 -	$(CC) -o Shutdown shutdown.c 
-+	$(CC) $(LDFLAGS) $(INCFLAGS) -o Shutdown shutdown.c
++	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(INCFLAGS) -o Shutdown shutdown.c
 -- 
 1.6.5
 

@@ -1,18 +1,13 @@
 #!/usr/bin/make -f
 
-PACKAGE		= wmshutdown
-PACKAGE2	= wmshutdown-run
+PACKAGE	 = wmshutdown
+PACKAGE2 = wmshutdown-run
 
-MANPAGE1	= debian/$(PACKAGE).$(MANSECT)
-MANPAGE2	= debian/$(PACKAGE2).$(MANSECT)
-
-include /usr/share/dpkg/buildflags.mk
-CFLAGS	+= -Wall -pedantic
+CFLAGS	+= -pedantic
 LDFLAGS += -Wl,--as-needed
-export CFLAGS LDFLAGS
 
 man:
-	# Commands to build manual pages
+	# Commands to build manual pages (pkg: hardening-includes)
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE2) makeman
 

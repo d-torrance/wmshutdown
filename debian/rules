@@ -3,8 +3,8 @@
 PACKAGE	 = wmshutdown
 PACKAGE2 = wmshutdown-run
 
-CFLAGS	+= -pedantic
-LDFLAGS += -Wl,--as-needed
+export DEB_CFLAGS_MAINT_APPEND	= -pedantic
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
 man:
 	# Commands to build manual pages (pkg: hardening-includes)

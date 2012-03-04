@@ -1,7 +1,7 @@
 wmshutdown (0.2-7) unstable; urgency=low
 
   * debian/control
-    - Build-Depends: rm dpkg-dev.
+    - Build-Depends: rm dpkg-dev; buildflags.mk no longer used.
     - (Standards-Version): Update to 3.9.3
   * debian/patches
     - (10): Adjust patch to actually use LDFLAGS and CFLAGS to
@@ -9,9 +9,10 @@ wmshutdown (0.2-7) unstable; urgency=low
       <simon@ruderich.org> (Closes: #662010).
   * debian/rules
     - Remove buildflags.mk which is unnecessary with compat 9.
-      Patch thanks to Simon Ruderich <simon@ruderich.org>.
+      Change to DEB_*_MAINT_APPEND variables.
+      Both changes thanks to Simon Ruderich <simon@ruderich.org>.
 
- -- Jari Aalto <jari.aalto@cante.net>  Sat, 03 Mar 2012 10:53:24 -0500
+ -- Jari Aalto <jari.aalto@cante.net>  Sun, 04 Mar 2012 12:00:34 -0500
 
 wmshutdown (0.2-6) unstable; urgency=low
 

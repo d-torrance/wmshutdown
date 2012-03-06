@@ -1,3 +1,11 @@
+wmshutdown (0.2-8) unstable; urgency=low
+
+  * debian/rules
+    - Enable all hardening flags with DEB_BUILD_MAINT_OPTIONS and
+      reading Debian specific CPPFLAGS.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 06 Mar 2012 10:55:18 -0500
+
 wmshutdown (0.2-7) unstable; urgency=low
 
   * debian/control

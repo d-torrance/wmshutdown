@@ -7,7 +7,6 @@ export DEB_CFLAGS_MAINT_APPEND	= -Wall -pedantic
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
 man:
-	# Commands to build manual pages (pkg: hardening-includes)
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
 	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE2) makeman
 

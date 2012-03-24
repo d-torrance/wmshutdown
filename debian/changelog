@@ -1,3 +1,10 @@
+wmshutdown (0.2-9) unstable; urgency=low
+
+  * debian/copyright
+    - Update to format 1.0
+
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 24 Mar 2012 02:47:56 -0400
+
 wmshutdown (0.2-8) unstable; urgency=low
 
   * debian/rules

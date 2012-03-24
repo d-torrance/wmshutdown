@@ -1,23 +1,22 @@
-Format: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=174
-X-Format: http://dep.debian.net/deps/dep5
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name:
 Upstream-Contact: Rafael Vidal Aroca <rafaelaroca@users.sf.net>
 Source: None
-X-Comment:
+X-Upstream-Comment:
  Dead upstream.
  2009-11-28 Sources no longer at <http://www.rafaelaroca.hpg.ig.com.br/bin>.
 
 Files: *
 Copyright:
- 2002-2007 Rafael Vidal Aroca <rafaelaroca@users.sf.net>, <rafael@3WT.com.br>
- <rafael@gds-corp.com>, <rafael@3WT.com.br>,
- <rafael@netlocal.com.br>, <rva@grad.icmc.usp.br>
+  2002-2007 Rafael Vidal Aroca <rafaelaroca@users.sf.net>, <rafael@3WT.com.br>
+  <rafael@gds-corp.com>, <rafael@3WT.com.br>,
+  <rafael@netlocal.com.br>, <rva@grad.icmc.usp.br>
 License: GPL-2+
 
 Files: debian/*
 Copyright:
-  2007-2012 Jari Aalto <jari.aalto@cante.net>
-  2002      Rafal Zawadzki <bluszcz@ats.com.pl>
+   2007-2012 Jari Aalto <jari.aalto@cante.net>
+   2002      Rafal Zawadzki <bluszcz@ats.com.pl>
 License: GPL-2+
 
 License: GPL-2+

@@ -4,8 +4,8 @@ Priority: optional
 Maintainer: Jari Aalto <jari.aalto@cante.net>
 Build-Depends: debhelper (>= 9), libgtk2.0-dev
 Standards-Version: 3.9.3.1
-Vcs-Git: http://git.debian.org/collab-maint/wmshutdown.git
-Vcs-Browser: http://git.debian.org/?p=collab-maint/wmshutdown.git;a=summary
+Vcs-Git: git://anonscm.debian.org/collab-maint/wmshutdown.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/wmshutdown.git;a=summary
 Homepage: http://www.rafaelaroca.hpg.ig.com.br/bin
 
 Package: wmshutdown

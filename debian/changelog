@@ -1,3 +1,9 @@
+wmshutdown (0.2-10) UNRELEASED; urgency=medium
+
+  * Fix Vcs-* URL in debian/control.
+
+ -- Mario Lang <mlang@debian.org>  Fri, 21 Feb 2014 11:38:59 +0100
+
 wmshutdown (0.2-9) unstable; urgency=low
 
   * debian/copyright

@@ -8,6 +8,7 @@ wmshutdown (0.2-10) unstable; urgency=low
     - Remove debian/*.1 from debian/clean.
   * debian/control
     - Bump Standards-Version to 3.9.5, no changes required.
+    - Update Vcs-* fields.
   * debian/patches/30-clang_ftbfs_Wreturn-type.patch
     - Fix to allow building with clang instead of gcc.  Thanks to Nicolas
       Sévelin-Radiguet <nicosr@free.fr> (Closes: #740964).

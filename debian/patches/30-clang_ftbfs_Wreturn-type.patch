@@ -1,0 +1,19 @@
+Description: Non-void function should return a value.
+ The function button_press should return an int, but was returning a void.
+ This caused the build to fail when clang was used instead of gcc.
+Author: Nicolas Sévelin-Radiguet <nicosr@free.fr>
+Bug-Debian: http://bugs.debian.org/740964
+Reviewed-By: Doug Torrance <dtorrance@monmouthcollege.edu>
+Last-Update: <2014-07-23>
+
+--- wmshutdown-0.2.orig/wmShutdown.c
++++ wmshutdown-0.2/wmShutdown.c
+@@ -98,7 +98,7 @@ int button_press(GtkWidget *widget, GdkE
+ 			case 1:
+ 
+ 				if (dialog != NULL)
+-			        	return;
++			        	return 1;
+ 				message = "Shutdown confirmation";
+ 				dialog = gtk_dialog_new();
+ 		    		label = gtk_label_new (message);

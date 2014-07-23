@@ -1,22 +1,8 @@
 #!/usr/bin/make -f
 
-PACKAGE	 = wmshutdown
-PACKAGE2 = wmshutdown-run
-
 export DEB_BUILD_MAINT_OPTIONS	= hardening=+all
 export DEB_CFLAGS_MAINT_APPEND	= -Wall -pedantic
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
-man:
-	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE) makeman
-	$(MAKE) -C debian -f pod2man.mk PACKAGE=$(PACKAGE2) makeman
-
-override_dh_auto_build: man
-	dh_auto_build
-
 %:
 	dh $@
-
-.PHONY: man
-
-# End of file

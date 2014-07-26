@@ -8,3 +8,6 @@ LIBS += $(gtk_LIBS) $(x11_LIBS)
 
 dist_pkgdata_DATA = wmshutdown.xpm
 dist_man_MANS = wmshutdown.1 wmshutdown-run.1
+
+install-exec-hook:
+	chmod ug+s $(DESTDIR)$(bindir)/wmshutdown-run

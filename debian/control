@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Jari Aalto <jari.aalto@cante.net>
 Build-Depends: debhelper (>= 9), libgtk2.0-dev
 Standards-Version: 3.9.5
-Homepage: http://www.rafaelaroca.hpg.ig.com.br/bin
+Homepage: http://wmshutdown.sourceforge.net
 Vcs-Browser: https://github.com/d-torrance/wmshutdown
 Vcs-Git: https://github.com/d-torrance/wmshutdown.git
 

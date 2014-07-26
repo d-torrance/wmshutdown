@@ -1,42 +1,41 @@
 				  ----------------
-				 | wmShutdown 0.2 |
+				 | wmShutdown 1.0 |
 				  ----------------
 
 1. What is wmShutdown?
 
-	wmShutdown is a Window Maker dock application that allows you to shutdown or reboot your machine just by clickig a button on your desktop. 
+	wmShutdown is a Window Maker dock application that allows you to shutdown or reboot your machine just by clickig a button on your desktop.
 	It's useful just for desktop machines, so there's no need to keep typing shutdown now -h every time you have to go away for some reason.
 
 	I'd be thankful for any fixes or comments about it.
-	
+
 2. Security issues
 
 	As we have to shutdown a machine as a single user, there are some trick that must be remembered here.
 
 	-There are two binaries:
-		wmShutdown: The dock itself, because GTK apps can't be suid
-		Shutdown: suid program called by wmShutdown just to call /sbin/shutdown
+		wmshutdown: The dock itself, because GTK apps can't be suid
+		wmshutdown-run: suid program called by wmShutdown just to call /sbin/shutdown
 
-	-During installation, your /sbin/shutdown is set suid
-	-The suid binary is installed under /usr/local/bin/Shutdown
+	As this was created for workstations, probably there's not much to be afraid.
 
-	As this was created for workstations, probably there's not much to be afraid. 
-	
 3. Install/Uninstall
 
-	tar -zxvf wmShutdown-0.1.tar.gz
-	cd wmShutdown-0.1
-	make dock
-	make shutdown
-	make install [or uninstall]
+	tar -zxvf wmshutdown-1.0.tar.gz
+	cd wmshutdown-1.0
+	./configure
+	make
+	make install [as root]
 
 
-4. Licence
-	
+4. License
+
 	wmShutdown is under GPL.
 
 5. Author
+
 	Rafael Vidal Aroca <rafael@linuxqos.cjb.net>
+	current maintainer:  Doug Torrance <dtorrance@monmouthcollege.edu>
 
 6. Todo
 	-Modal window for shutdown

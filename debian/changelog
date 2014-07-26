@@ -21,7 +21,7 @@ wmshutdown (1.0-1) unstable; urgency=low
 wmshutdown (0.2-9) unstable; urgency=low
 
   * debian/copyright
-    - Update to format 1.0
+    - Update to format 1.0.
 
  -- Jari Aalto <jari.aalto@cante.net>  Sat, 24 Mar 2012 02:47:56 -0400
 
@@ -37,7 +37,7 @@ wmshutdown (0.2-7) unstable; urgency=low
 
   * debian/control
     - Build-Depends: rm dpkg-dev; buildflags.mk no longer used.
-    - (Standards-Version): Update to 3.9.3
+    - (Standards-Version): Update to 3.9.3.
   * debian/patches
     - (10): Adjust patch to actually use LDFLAGS and CFLAGS to
       enable hardened CFLAGS. Patch thanks to Simon Ruderich
@@ -52,7 +52,7 @@ wmshutdown (0.2-7) unstable; urgency=low
 wmshutdown (0.2-6) unstable; urgency=low
 
   * debian/compat
-    - Update to 9
+    - Update to 9.
   * debian/control
     - (Build-Depends): update to debhelper 9, dpkg-dev 1.16.1.
   * debian/copyright
@@ -90,9 +90,9 @@ wmshutdown (0.2-5) unstable; urgency=low
 wmshutdown (0.2-4) unstable; urgency=medium
 
   * New maintainer (ITA; Closes: #352440).
-    - ACK and integrate previous QA changes
+    - ACK and integrate previous QA changes.
   * debian/README.Debian
-    - Document change of binary name: wmshutdown, wmshutdown-run
+    - Document change of binary name: wmshutdown, wmshutdown-run.
   * debian/README.Debian
     - Instruct how to disable shutdown-run(1) from other users than root.
   * debian/compat
@@ -117,10 +117,10 @@ wmshutdown (0.2-4) unstable; urgency=medium
   * debian/patches/10-makefile.dpatch
     - Nef file
     - (LDFLAGS): new variable. Check problems with
-      linker flag -Wl,--no-add-needed
-      See http://wiki.debian.org/qa.debian.org/FTBFS#A2009-11-02Packagesfailingbecausebinutils-gold.2BAC8-indirectlinking
+      linker flag -Wl,--no-add-needed.
+      See http://wiki.debian.org/qa.debian.org/FTBFS#A2009-11-02Packagesfailingbecausebinutils-gold.2BAC8-indirectlinking.
     - (LIBS): new variable. Use -lX11.
-    - (all): change to call build targets.
+    - (all): change to call build targets..
     - (dock): Link against LIBS (FTBFS; Closes: #556683).
     - (help): move echo commands here.
     - (install): Change program names to reflect package:
@@ -146,37 +146,36 @@ wmshutdown (0.2-2) unstable; urgency=low
 
   * QA upload.
   * debian/control
-    - set maintainer to QA group
-    - bump Standards-Version to 3.8.0 (no changes needed)
-    - bump versioned build-dep on debhelper to at least 5
-    - small reformat of short and long descriptions
-    - added ${misc:Depends} to Depends
+    - Set maintainer to QA group.
+    - Bump Standards-Version to 3.8.0 (no changes needed).
+    - Bump versioned build-dep on debhelper to at least 5.
+    - Small reformat of short and long descriptions.
+    - Add ${misc:Depends} to Depends.
   * debian/compat
-    - created with value set to 5
+    - Created with value set to 5.
   * debian/rules
-    - removed configure target, not needed
-    - removed DH_COMPAT
-    - moved compilation into build (from install), where it belong
-    - merged 'rm' into 'dh_clean' call
-    - don't ignore "make clean" errors
-    - removed unneeded and commented dh_* calls
+    - Remove configure target, not needed.
+    - Remove DH_COMPAT.
+    - Move compilation into build (from install), where it belongs.
+    - Merge 'rm' into 'dh_clean' call.
+    - Don't ignore "make clean" errors.
+    - Remove unneeded and commented dh_* calls.
   * debian/copyright
-    - fixed copyright section
-    - indented copyright, upstream author and license section with 4 spaces
+    - Fix copyright section.
+    - Indent copyright, upstream author and license section with 4 spaces.
   * debian/menu
-    - updated section to Applications/System/Administration
+    - Update section to Applications/System/Administration.
   * debian/{Shutdown.1,wmShutdown.1}
-    - fixed the 'whatis' section
+    - Fix the 'whatis' section.
 
  -- Sandro Tosi <morph@debian.org>  Mon, 08 Dec 2008 13:02:21 +0100
 
 wmshutdown (0.2-1) unstable; urgency=low
 
-  * New upstream release
-  * Closes: #205604: Error in file /usr/lib/menu/wmshutdown
-  * Change maintainer e-mail address
-  * Pseudo manpages has been written
-  * Closes: #252718: New upstream release available (0.2)
+  * New upstream release (Closes: #252718).
+  * Fix error in file /usr/lib/menu/wmshutdown (Closes: #205604).
+  * Change maintainer e-mail address.
+  * Add pseudo manpages.
 
  -- Rafal Zawadzki <bluszcz@jabberpl.org>  Sat,  5 Jun 2004 00:09:49 +0200
 

@@ -13,6 +13,7 @@ wmshutdown (1.0-1) unstable; urgency=low
     have to manually change permissions; remove debian/README.Debian which
     instructed them how to do this.
   * debian/control
+    - Update Build-Depends to libgtk-3-dev.
     - Bump Standards-Version to 3.9.5, no changes required.
     - Update Homepage, Vcs-* fields.
   * debian/watch

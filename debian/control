@@ -1,8 +1,8 @@
 Source: wmshutdown
 Section: x11
 Priority: optional
-Maintainer: Jari Aalto <jari.aalto@cante.net>
-Build-Depends: debhelper (>= 9), libgtk2.0-dev
+Maintainer: Doug Torrance <dtorrance@monmouthcollege.edu>
+Build-Depends: debhelper (>= 9), libgtk-3-dev
 Standards-Version: 3.9.5
 Homepage: http://wmshutdown.sourceforge.net
 Vcs-Browser: https://github.com/d-torrance/wmshutdown

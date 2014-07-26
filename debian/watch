@@ -1,5 +1,2 @@
 version=3
-# <Webpage URL> <string match> [Version  [Action]]
-
-# 2009-11-28 No longer exists
-http://www.rafaelaroca.hpg.ig.com.br/bin/ wmshutdown-(.+)\.tar\.gz
+http://sf.net/wmshutdown/wmshutdown-(.+)\.tar\.gz

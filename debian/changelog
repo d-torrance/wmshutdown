@@ -82,7 +82,7 @@ wmshutdown (0.2-5) unstable; urgency=low
     - Convert to quilt.
     - (10): Adjust link flags and add trimmed down GTKLIBS.
     - (30): New patch to fix "cast to pointer from integer of
-      different size" warnings.
+            different size" warnings.
   * debian/README.source
     - Delete, obsoleted by format 3.0.
   * debian/rules
@@ -92,7 +92,7 @@ wmshutdown (0.2-5) unstable; urgency=low
 
 wmshutdown (0.2-4) unstable; urgency=medium
 
-  * New maintainer (ITA; Closes: #352440).
+  * New maintainer (Closes: #352440).
     - ACK and integrate previous QA changes.
   * debian/README.Debian
     - Document change of binary name: wmshutdown, wmshutdown-run.
@@ -121,10 +121,11 @@ wmshutdown (0.2-4) unstable; urgency=medium
     - Nef file
     - (LDFLAGS): new variable. Check problems with
       linker flag -Wl,--no-add-needed.
-      See http://wiki.debian.org/qa.debian.org/FTBFS#A2009-11-02Packagesfailingbecausebinutils-gold.2BAC8-indirectlinking.
+      See http://wiki.debian.org/qa.debian.org/FTBFS
+      (2009-11-02 Packages failing because binutils-gold/indirect linking).
     - (LIBS): new variable. Use -lX11.
     - (all): change to call build targets..
-    - (dock): Link against LIBS (FTBFS; Closes: #556683).
+    - (dock): Link against LIBS to fix FTBFS (Closes: #556683).
     - (help): move echo commands here.
     - (install): Change program names to reflect package:
       wmShutdown => wmshutdown. Shutdown => wmshutdown-run.
@@ -140,8 +141,8 @@ wmshutdown (0.2-4) unstable; urgency=medium
 wmshutdown (0.2-3) unstable; urgency=low
 
   * QA upload.
-  * Change build-dep to libgtk2.0-dev.
-    + Makefile: use pkg-config instead of gtk-config.
+  * Change GTK+ Build-Dependency to libgtk2.0-dev.
+    - Makefile: use pkg-config instead of gtk-config.
 
  -- Barry deFreese <bdefreese@debian.org>  Thu, 19 Feb 2009 12:59:24 -0500
 

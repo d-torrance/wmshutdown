@@ -1,3 +1,10 @@
+wmshutdown (1.0-2) UNRELEASED; urgency=medium
+
+  * debian/lintian-overrides
+    - New file; override setuid-gid-binary warning for wmshutdown-run.
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sat, 02 Aug 2014 23:59:07 -0500
+
 wmshutdown (1.0-1) unstable; urgency=low
 
   * New maintainer (Closes: #714261).

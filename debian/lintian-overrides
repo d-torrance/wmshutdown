@@ -1,0 +1,4 @@
+# The binary /usr/bin/wmshutdown-run is used by wmshutdown to call
+# /sbin/wmshutdown, which usually must be run by root. Therefore, it is tagged
+# SETUID.
+wmshutdown binary: setuid-gid-binary

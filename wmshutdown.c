@@ -11,6 +11,7 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
+#include <gio/gio.h>
 
 GtkWidget *dialog = NULL;
 
@@ -61,32 +62,28 @@ int fecha(void) {
 	dialog = NULL;
 }
 
-int desliga(void) {
-	FILE *output;
-	int ch;
+void handle_click(GtkWidget *widget, gpointer data) {
+	GDBusConnection *connection;
+	GDBusMessage *message;
+	GError *error = NULL;
 
-	output = popen("wmshutdown-run -h", "r");
-	ch = fgetc(output);
-	while (ch != EOF) {
-		printf("%c", ch);
-		ch = fgetc(output);
-	}
-	pclose(output);
+	gchar *method = (gchar *)data;
+
+	connection = g_bus_get_sync(G_BUS_TYPE_SYSTEM, NULL, &error);
+	message = g_dbus_message_new_method_call(
+			NULL,
+			"/org/freedesktop/ConsoleKit/Manager",
+			"org.freedesktop.ConsoleKit.Manager",
+			method);
+	g_dbus_message_set_destination(message, "org.freedesktop.ConsoleKit");
+
+	g_dbus_connection_send_message_with_reply_sync(
+		connection, message, 0, -1, NULL, NULL, &error);
+
+	g_object_unref(message);
+	g_object_unref(connection);
+	gtk_main_quit();
 }
-
-int reinicia(void) {
-	FILE *output;
-	int ch;
-
-	output = popen("wmshutdown-run -r", "r");
-	ch = fgetc(output);
-	while (ch != EOF) {
-		g_print("%c", ch);
-		ch = fgetc(output);
-	}
-	pclose(output);
-}
-
 
 int button_press(GtkWidget *widget, GdkEvent *event) {
 	GtkWidget *label;
@@ -115,12 +112,12 @@ int button_press(GtkWidget *widget, GdkEvent *event) {
 				 (gpointer) dialog);
 		g_signal_connect(halt_button,
 				 "clicked",
-				 G_CALLBACK(desliga),
-				 (gpointer) dialog);
+				 G_CALLBACK(handle_click),
+				 "Stop");
 		g_signal_connect(reboot_button,
 				 "clicked",
-				 G_CALLBACK(reinicia),
-				 (gpointer) dialog);
+				 G_CALLBACK(handle_click),
+				 "Restart");
 		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(
 							GTK_DIALOG(dialog))),
 				  halt_button);

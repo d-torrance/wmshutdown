@@ -1,23 +1,44 @@
-/*
- * wmshutdown.c
+/* wmshutdown - dockapp to shutdown or reboot your machine
  *
- * (C) 2001 Rafael V. Aroca <rafael@linuxqos.cjb.net>
+ * Copyright 2001, 2002 Rafael V. Aroca <rafael@linuxqos.cjb.net>
+ * Copyright 2014 Doug Torrance <dtorrance@monmouthcollege.edu>
  *
- * This software is under GPL
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * Based on foodock lib by Alexey Vyskubov <alexey@pepper.spb.ru>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- */
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
+#include <gio/gio.h>
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+static int showVersion = 0;
 GtkWidget *dialog = NULL;
+
+static GOptionEntry entries[] =
+{
+	{ "version", 'v', 0, G_OPTION_ARG_NONE, &showVersion,
+	  "Display version information", NULL },
+	{ NULL }
+};
+
 
 /* gtk3 dockapp code based on wmpasman by Brad Jorsch
  * <anomie@users.sourceforge.net>
- * http://sourceforge.net/projects/wmpasman/
- */
+ * http://sourceforge.net/projects/wmpasman */
+
 GtkWidget *cria_dock(GtkWidget *mw, unsigned int s) {
 	GdkDisplay *display;
 	GtkWidget *foobox;
@@ -56,39 +77,45 @@ GtkWidget *cria_dock(GtkWidget *mw, unsigned int s) {
 	return foobox;
 }
 
-int fecha(void) {
+void fecha(void) {
 	gtk_widget_destroy(dialog);
 	dialog = NULL;
 }
 
-int desliga(void) {
-	FILE *output;
-	int ch;
+void handle_click(GtkWidget *widget, gpointer data) {
+	GDBusConnection *connection;
+	GDBusMessage *message, *reply;
+	GError *error = NULL;
 
-	output = popen("wmshutdown-run -h", "r");
-	ch = fgetc(output);
-	while (ch != EOF) {
-		printf("%c", ch);
-		ch = fgetc(output);
-	}
-	pclose(output);
+	gchar *method = (gchar *)data;
+
+	connection = g_bus_get_sync(G_BUS_TYPE_SYSTEM, NULL, &error);
+	message = g_dbus_message_new_method_call(
+			NULL,
+			"/org/freedesktop/login1",
+			"org.freedesktop.login1.Manager",
+			method);
+	g_dbus_message_set_body(message, g_variant_new("(b)", TRUE));
+	gchar *status = g_dbus_message_print(message, 0);
+	g_printerr("sending following message:\n%s", status);
+	g_free(status);
+
+	g_dbus_message_set_destination(message, "org.freedesktop.login1");
+
+	reply = g_dbus_connection_send_message_with_reply_sync(
+		connection, message, 0, -1, NULL, NULL, &error);
+
+	status = g_dbus_message_print(reply, 0);
+	g_printerr("got response:\n%s", status);
+	g_free(status);
+
+
+	g_object_unref(message);
+	g_object_unref(connection);
+	gtk_main_quit();
 }
 
-int reinicia(void) {
-	FILE *output;
-	int ch;
-
-	output = popen("wmshutdown-run -r", "r");
-	ch = fgetc(output);
-	while (ch != EOF) {
-		g_print("%c", ch);
-		ch = fgetc(output);
-	}
-	pclose(output);
-}
-
-
-int button_press(GtkWidget *widget, GdkEvent *event) {
+void button_press(GtkWidget *widget, GdkEvent *event) {
 	GtkWidget *label;
 	gchar *message;
 	GtkWidget *halt_button;
@@ -99,7 +126,7 @@ int button_press(GtkWidget *widget, GdkEvent *event) {
 	switch (bevent->button) {
 	case 1:
 		if (dialog != NULL)
-			return 1;
+			return;
 		message = "Shutdown confirmation";
 		dialog = gtk_dialog_new();
 		label = gtk_label_new(message);
@@ -115,12 +142,12 @@ int button_press(GtkWidget *widget, GdkEvent *event) {
 				 (gpointer) dialog);
 		g_signal_connect(halt_button,
 				 "clicked",
-				 G_CALLBACK(desliga),
-				 (gpointer) dialog);
+				 G_CALLBACK(handle_click),
+				 "PowerOff");
 		g_signal_connect(reboot_button,
 				 "clicked",
-				 G_CALLBACK(reinicia),
-				 (gpointer) dialog);
+				 G_CALLBACK(handle_click),
+				 "Reboot");
 		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(
 							GTK_DIALOG(dialog))),
 				  halt_button);
@@ -138,12 +165,27 @@ int button_press(GtkWidget *widget, GdkEvent *event) {
 }
 
 int main(int argc, char *argv[]) {
-	GdkDisplay *display;
+	GError *error = NULL;
+	GOptionContext *context;
 	GtkWidget *gtkiw;
 	GtkWidget *dockArea;
 	GtkWidget *pixmap;
 
+
 	gtk_init(&argc, &argv);
+
+
+	context = g_option_context_new ("- dockapp to shutdown or reboot your "
+					"machine");
+	g_option_context_add_main_entries (context, entries, NULL);
+	g_option_context_add_group (context, gtk_get_option_group (TRUE));
+	g_option_context_parse (context, &argc, &argv, &error);
+
+	if (showVersion) {
+		printf("wmforecast "VERSION"\n");
+		return 0;
+	}
+
 
 	gtkiw = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	dockArea = cria_dock(gtkiw, 47);

@@ -71,7 +71,7 @@ int fecha(void) {
 
 void handle_click(GtkWidget *widget, gpointer data) {
 	GDBusConnection *connection;
-	GDBusMessage *message;
+	GDBusMessage *message, *reply;
 	GError *error = NULL;
 
 	gchar *method = (gchar *)data;
@@ -79,13 +79,23 @@ void handle_click(GtkWidget *widget, gpointer data) {
 	connection = g_bus_get_sync(G_BUS_TYPE_SYSTEM, NULL, &error);
 	message = g_dbus_message_new_method_call(
 			NULL,
-			"/org/freedesktop/ConsoleKit/Manager",
-			"org.freedesktop.ConsoleKit.Manager",
+			"/org/freedesktop/login1",
+			"org.freedesktop.login1.Manager",
 			method);
-	g_dbus_message_set_destination(message, "org.freedesktop.ConsoleKit");
+	g_dbus_message_set_body(message, g_variant_new("(b)", TRUE));
+	gchar *status = g_dbus_message_print(message, 0);
+	g_printerr("sending following message:\n%s", status);
+	g_free(status);
 
-	g_dbus_connection_send_message_with_reply_sync(
+	g_dbus_message_set_destination(message, "org.freedesktop.login1");
+
+	reply = g_dbus_connection_send_message_with_reply_sync(
 		connection, message, 0, -1, NULL, NULL, &error);
+
+	status = g_dbus_message_print(reply, 0);
+	g_printerr("got response:\n%s", status);
+	g_free(status);
+
 
 	g_object_unref(message);
 	g_object_unref(connection);
@@ -120,11 +130,11 @@ int button_press(GtkWidget *widget, GdkEvent *event) {
 		g_signal_connect(halt_button,
 				 "clicked",
 				 G_CALLBACK(handle_click),
-				 "Stop");
+				 "PowerOff");
 		g_signal_connect(reboot_button,
 				 "clicked",
 				 G_CALLBACK(handle_click),
-				 "Restart");
+				 "Reboot");
 		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(
 							GTK_DIALOG(dialog))),
 				  halt_button);

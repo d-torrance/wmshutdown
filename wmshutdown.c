@@ -64,7 +64,7 @@ GtkWidget *cria_dock(GtkWidget *mw, unsigned int s) {
 	return foobox;
 }
 
-int fecha(void) {
+void fecha(void) {
 	gtk_widget_destroy(dialog);
 	dialog = NULL;
 }
@@ -102,7 +102,7 @@ void handle_click(GtkWidget *widget, gpointer data) {
 	gtk_main_quit();
 }
 
-int button_press(GtkWidget *widget, GdkEvent *event) {
+void button_press(GtkWidget *widget, GdkEvent *event) {
 	GtkWidget *label;
 	gchar *message;
 	GtkWidget *halt_button;
@@ -113,7 +113,7 @@ int button_press(GtkWidget *widget, GdkEvent *event) {
 	switch (bevent->button) {
 	case 1:
 		if (dialog != NULL)
-			return 1;
+			return;
 		message = "Shutdown confirmation";
 		dialog = gtk_dialog_new();
 		label = gtk_label_new(message);
@@ -152,7 +152,6 @@ int button_press(GtkWidget *widget, GdkEvent *event) {
 }
 
 int main(int argc, char *argv[]) {
-	GdkDisplay *display;
 	GtkWidget *gtkiw;
 	GtkWidget *dockArea;
 	GtkWidget *pixmap;

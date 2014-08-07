@@ -20,7 +20,20 @@
 #include <gdk/gdkx.h>
 #include <gio/gio.h>
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+static int showVersion = 0;
 GtkWidget *dialog = NULL;
+
+static GOptionEntry entries[] =
+{
+	{ "version", 'v', 0, G_OPTION_ARG_NONE, &showVersion,
+	  "Display version information", NULL },
+	{ NULL }
+};
+
 
 /* gtk3 dockapp code based on wmpasman by Brad Jorsch
  * <anomie@users.sourceforge.net>
@@ -152,11 +165,27 @@ void button_press(GtkWidget *widget, GdkEvent *event) {
 }
 
 int main(int argc, char *argv[]) {
+	GError *error = NULL;
+	GOptionContext *context;
 	GtkWidget *gtkiw;
 	GtkWidget *dockArea;
 	GtkWidget *pixmap;
 
+
 	gtk_init(&argc, &argv);
+
+
+	context = g_option_context_new ("- dockapp to shutdown or reboot your "
+					"machine");
+	g_option_context_add_main_entries (context, entries, NULL);
+	g_option_context_add_group (context, gtk_get_option_group (TRUE));
+	g_option_context_parse (context, &argc, &argv, &error);
+
+	if (showVersion) {
+		printf("wmforecast "VERSION"\n");
+		return 0;
+	}
+
 
 	gtkiw = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	dockArea = cria_dock(gtkiw, 47);

@@ -24,6 +24,20 @@
 #include <config.h>
 #endif
 
+#ifdef CONSOLEKIT
+#define HALT_METHOD      "Stop"
+#define REBOOT_METHOD    "Restart"
+#define DBUS_PATH        "/org/freedesktop/ConsoleKit/Manager"
+#define DBUS_INTERFACE   "org.freedesktop.ConsoleKit.Manager"
+#define DBUS_DESTINATION "org.freedesktop.ConsoleKit"
+#else
+#define HALT_METHOD      "PowerOff"
+#define REBOOT_METHOD    "Reboot"
+#define DBUS_PATH        "/org/freedesktop/login1"
+#define DBUS_INTERFACE   "org.freedesktop.login1.Manager"
+#define DBUS_DESTINATION "org.freedesktop.login1"
+#endif
+
 static int showVersion = 0;
 GtkWidget *dialog = NULL;
 
@@ -92,15 +106,18 @@ void handle_click(GtkWidget *widget, gpointer data) {
 	connection = g_bus_get_sync(G_BUS_TYPE_SYSTEM, NULL, &error);
 	message = g_dbus_message_new_method_call(
 			NULL,
-			"/org/freedesktop/login1",
-			"org.freedesktop.login1.Manager",
+			DBUS_PATH,
+			DBUS_INTERFACE,
 			method);
+
+#ifndef CONSOLEKIT
 	g_dbus_message_set_body(message, g_variant_new("(b)", TRUE));
+#endif
 	gchar *status = g_dbus_message_print(message, 0);
 	g_printerr("sending following message:\n%s", status);
 	g_free(status);
 
-	g_dbus_message_set_destination(message, "org.freedesktop.login1");
+	g_dbus_message_set_destination(message, DBUS_DESTINATION);
 
 	reply = g_dbus_connection_send_message_with_reply_sync(
 		connection, message, 0, -1, NULL, NULL, &error);
@@ -143,11 +160,11 @@ void button_press(GtkWidget *widget, GdkEvent *event) {
 		g_signal_connect(halt_button,
 				 "clicked",
 				 G_CALLBACK(handle_click),
-				 "PowerOff");
+				 HALT_METHOD);
 		g_signal_connect(reboot_button,
 				 "clicked",
 				 G_CALLBACK(handle_click),
-				 "Reboot");
+				 REBOOT_METHOD);
 		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(
 							GTK_DIALOG(dialog))),
 				  halt_button);
@@ -173,7 +190,6 @@ int main(int argc, char *argv[]) {
 
 
 	gtk_init(&argc, &argv);
-
 
 	context = g_option_context_new ("- dockapp to shutdown or reboot your "
 					"machine");

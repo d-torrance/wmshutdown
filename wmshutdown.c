@@ -109,27 +109,33 @@ void handle_click(GtkWidget *widget, gpointer data) {
 			DBUS_PATH,
 			DBUS_INTERFACE,
 			method);
-
 #ifndef CONSOLEKIT
 	g_dbus_message_set_body(message, g_variant_new("(b)", TRUE));
 #endif
-	gchar *status = g_dbus_message_print(message, 0);
-	g_printerr("sending following message:\n%s", status);
-	g_free(status);
-
 	g_dbus_message_set_destination(message, DBUS_DESTINATION);
-
 	reply = g_dbus_connection_send_message_with_reply_sync(
 		connection, message, 0, -1, NULL, NULL, &error);
 
-	status = g_dbus_message_print(reply, 0);
-	g_printerr("got response:\n%s", status);
-	g_free(status);
+	if (g_dbus_message_get_message_type(reply) ==
+	    G_DBUS_MESSAGE_TYPE_ERROR) {
+		GtkWidget *dialog;
 
+		dialog = gtk_message_dialog_new(
+			GTK_WINDOW(gtk_widget_get_toplevel(widget)),
+			GTK_DIALOG_DESTROY_WITH_PARENT,
+			GTK_MESSAGE_ERROR,
+			GTK_BUTTONS_CLOSE,
+			"%s",
+			g_strcompress(g_variant_print(
+					      g_dbus_message_get_body(reply),
+					      TRUE)));
+		gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
+	}
 
 	g_object_unref(message);
+	g_object_unref(reply);
 	g_object_unref(connection);
-	gtk_main_quit();
 }
 
 void button_press(GtkWidget *widget, GdkEvent *event) {

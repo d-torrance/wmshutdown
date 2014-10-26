@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/d-torrance/wmshutdown.git
 
 Package: wmshutdown
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd [linux-any], consolekit [!linux], dbus
 Description: dockapp to shutdown or reboot your machine
  This is a dock applications for Window Maker that allows you to
  shutdown or reboot your machine just by clickig a button on desktop

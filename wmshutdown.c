@@ -24,6 +24,23 @@
 #include <config.h>
 #endif
 
+#define GTK_RESPONSE_HALT   1
+#define GTK_RESPONSE_REBOOT 2
+
+#ifdef CONSOLEKIT
+#define HALT_METHOD      "Stop"
+#define REBOOT_METHOD    "Restart"
+#define DBUS_PATH        "/org/freedesktop/ConsoleKit/Manager"
+#define DBUS_INTERFACE   "org.freedesktop.ConsoleKit.Manager"
+#define DBUS_DESTINATION "org.freedesktop.ConsoleKit"
+#else
+#define HALT_METHOD      "PowerOff"
+#define REBOOT_METHOD    "Reboot"
+#define DBUS_PATH        "/org/freedesktop/login1"
+#define DBUS_INTERFACE   "org.freedesktop.login1.Manager"
+#define DBUS_DESTINATION "org.freedesktop.login1"
+#endif
+
 static int showVersion = 0;
 GtkWidget *dialog = NULL;
 
@@ -82,85 +99,84 @@ void fecha(void) {
 	dialog = NULL;
 }
 
-void handle_click(GtkWidget *widget, gpointer data) {
+void handle_click(GtkWidget *widget, char *method) {
 	GDBusConnection *connection;
 	GDBusMessage *message, *reply;
 	GError *error = NULL;
 
-	gchar *method = (gchar *)data;
-
 	connection = g_bus_get_sync(G_BUS_TYPE_SYSTEM, NULL, &error);
 	message = g_dbus_message_new_method_call(
 			NULL,
-			"/org/freedesktop/login1",
-			"org.freedesktop.login1.Manager",
+			DBUS_PATH,
+			DBUS_INTERFACE,
 			method);
+#ifndef CONSOLEKIT
 	g_dbus_message_set_body(message, g_variant_new("(b)", TRUE));
-	gchar *status = g_dbus_message_print(message, 0);
-	g_printerr("sending following message:\n%s", status);
-	g_free(status);
-
-	g_dbus_message_set_destination(message, "org.freedesktop.login1");
-
+#endif
+	g_dbus_message_set_destination(message, DBUS_DESTINATION);
 	reply = g_dbus_connection_send_message_with_reply_sync(
 		connection, message, 0, -1, NULL, NULL, &error);
 
-	status = g_dbus_message_print(reply, 0);
-	g_printerr("got response:\n%s", status);
-	g_free(status);
+	if (g_dbus_message_get_message_type(reply) ==
+	    G_DBUS_MESSAGE_TYPE_ERROR) {
+		GtkWidget *dialog;
 
+		dialog = gtk_message_dialog_new(
+			GTK_WINDOW(gtk_widget_get_toplevel(widget)),
+			GTK_DIALOG_DESTROY_WITH_PARENT,
+			GTK_MESSAGE_ERROR,
+			GTK_BUTTONS_CLOSE,
+			"%s",
+			g_strcompress(g_variant_print(
+					      g_dbus_message_get_body(reply),
+					      TRUE)));
+		gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
+	}
 
 	g_object_unref(message);
+	g_object_unref(reply);
 	g_object_unref(connection);
-	gtk_main_quit();
 }
 
 void button_press(GtkWidget *widget, GdkEvent *event) {
 	GtkWidget *label;
-	gchar *message;
-	GtkWidget *halt_button;
-	GtkWidget *reboot_button;
-	GtkWidget *cancel_button;
+	gint result;
 
 	GdkEventButton  *bevent = (GdkEventButton *)event;
 	switch (bevent->button) {
 	case 1:
 		if (dialog != NULL)
 			return;
-		message = "Shutdown confirmation";
 		dialog = gtk_dialog_new();
-		label = gtk_label_new(message);
-
-		halt_button = gtk_button_new_with_label("Halt");
-		reboot_button = gtk_button_new_with_label("Reboot");
-		cancel_button = gtk_button_new_with_label("Cancel");
-
-		g_signal_connect(dialog, "destroy", G_CALLBACK(fecha), NULL);
-		g_signal_connect(cancel_button,
-				 "clicked",
-				 G_CALLBACK(fecha),
-				 (gpointer) dialog);
-		g_signal_connect(halt_button,
-				 "clicked",
-				 G_CALLBACK(handle_click),
-				 "PowerOff");
-		g_signal_connect(reboot_button,
-				 "clicked",
-				 G_CALLBACK(handle_click),
-				 "Reboot");
-		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(
-							GTK_DIALOG(dialog))),
-				  halt_button);
-		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(
-							GTK_DIALOG(dialog))),
-				  reboot_button);
-		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(
-							GTK_DIALOG(dialog))),
-				  cancel_button);
+		label = gtk_label_new("Shutdown confirmation");
 		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(
 							GTK_DIALOG(dialog))),
 				  label);
-		gtk_widget_show_all(dialog);
+		gtk_widget_show(label);
+		gtk_dialog_add_buttons(GTK_DIALOG(dialog),
+				       "Halt", GTK_RESPONSE_HALT,
+				       "Reboot", GTK_RESPONSE_REBOOT,
+				       "Cancel", GTK_RESPONSE_CANCEL, NULL);
+
+		g_signal_connect(dialog, "destroy", G_CALLBACK(fecha), NULL);
+
+		result = gtk_dialog_run(GTK_DIALOG (dialog));
+		switch (result) {
+		case GTK_RESPONSE_HALT:
+			handle_click(dialog, HALT_METHOD);
+			break;
+		case GTK_RESPONSE_REBOOT:
+			handle_click(dialog, REBOOT_METHOD);
+			break;
+		case GTK_RESPONSE_CANCEL:
+			fecha();
+			break;
+		default:
+			break;
+		}
+	default:
+		break;
 	}
 }
 
@@ -173,7 +189,6 @@ int main(int argc, char *argv[]) {
 
 
 	gtk_init(&argc, &argv);
-
 
 	context = g_option_context_new ("- dockapp to shutdown or reboot your "
 					"machine");

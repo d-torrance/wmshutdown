@@ -1,12 +1,26 @@
-wmshutdown (1.1-1) unstable; urgency=medium
+wmshutdown (1.2-1) UNRELEASED; urgency=medium
 
-  * New upstream version.  Uses logind instead of wmshutdown-run setuid binary.
-    - Remove override_dh_fixperms from debian/rules.
+  * New upstream release.
+    - Uses logind or ConsoleKit instead of wmshutdown-run setuid binary.
+  * debian/control
+    - Update Homepage.
+    - Bump Standards-Version to 3.9.6, no changes required.
+    - Add systemd [linux-any], consolekit [!linux], and dbus to Depends.
+    - Add dh-autoreconf to Build-Depends.
   * debian/copyright
-    - Update Upstream-Contact, Source fields.
+    - Update Upstream-Contact, Source.
     - Update copyright information.
+  * debian/NEWS.debian
+    - Remove out-of-date file.
+  * debian/rules
+    - Remove override_dh_fixperms target.
+    - Use dh-autoreconf.
+  * debian/rules
+    - Add get-orig-source target.
+  * debian/watch
+    - Update with new location.
 
- -- Doug Torrance <dtorrance@monmouthcollege.edu>  Thu, 07 Aug 2014 08:44:23 -0500
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 26 Oct 2014 08:25:27 -0500
 
 wmshutdown (1.0-1) unstable; urgency=low
 

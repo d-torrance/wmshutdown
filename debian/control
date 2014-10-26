@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Doug Torrance <dtorrance@monmouthcollege.edu>
 Build-Depends: debhelper (>= 9), libgtk-3-dev
 Standards-Version: 3.9.5
-Homepage: http://wmshutdown.sourceforge.net
+Homepage: https://github.com/d-torrance/wmshutdown
 Vcs-Browser: https://github.com/d-torrance/wmshutdown
 Vcs-Git: https://github.com/d-torrance/wmshutdown.git
 

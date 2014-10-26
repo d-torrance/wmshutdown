@@ -1,2 +1,2 @@
 version=3
-http://sf.net/wmshutdown/wmshutdown-(.+)\.tar\.gz
+https://github.com/d-torrance/wmshutdown/releases/ download/upstream%2F.+/wm(?:s|S)hutdown-(.+).tar.gz

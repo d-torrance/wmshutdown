@@ -11,3 +11,9 @@
 	  it is no longer needed.
 	* Update copyright information and documentation.
 	* Add command line options (--help and --version).
+25/10/2014: Version 1.2 released.
+	* Add --with-consolekit configure option to enable users wanting to use
+	  ConsoleKit instead of logind.
+	* Use dialog to communicate dbus errors.
+	* Replace deprecated gtk_dialog_get_action_area with
+	  gtk_dialog_add_buttons.

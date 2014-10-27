@@ -197,7 +197,7 @@ int main(int argc, char *argv[]) {
 	g_option_context_parse (context, &argc, &argv, &error);
 
 	if (showVersion) {
-		printf("wmforecast "VERSION"\n");
+		printf(PACKAGE_STRING"\n");
 		return 0;
 	}
 

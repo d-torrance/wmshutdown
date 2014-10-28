@@ -1,2 +1,3 @@
 version=3
+opts=pgpsigurlmangle=s/$/.asc/ \
 https://github.com/d-torrance/wmshutdown/releases/ download/upstream%2F.+/wm(?:s|S)hutdown-(.+).tar.gz

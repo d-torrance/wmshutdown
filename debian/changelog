@@ -1,4 +1,4 @@
-wmshutdown (1.3-1) UNRELEASED; urgency=medium
+wmshutdown (1.3-1) unstable; urgency=medium
 
   * New upstream release.
     - Uses logind or ConsoleKit instead of wmshutdown-run setuid binary.
@@ -18,10 +18,13 @@ wmshutdown (1.3-1) UNRELEASED; urgency=medium
   * debian/rules
     - Add get-orig-source target.
     - Add override_dh_auto_configure target to use ConsoleKit in !linux.
+  * debian/upstream/signing-key.asc
+    - New file.
   * debian/watch
     - Update with new location.
+    - Add pgpsigurlmangle option.
 
- -- Doug Torrance <dtorrance@monmouthcollege.edu>  Mon, 27 Oct 2014 19:51:46 -0500
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Mon, 27 Oct 2014 22:46:42 -0500
 
 wmshutdown (1.0-1) unstable; urgency=low
 

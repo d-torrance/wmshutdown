@@ -41,22 +41,21 @@
 #define DBUS_DESTINATION "org.freedesktop.login1"
 #endif
 
-static int showVersion = 0;
+static int showVersion;
 GtkWidget *dialog = NULL;
 
-static GOptionEntry entries[] =
-{
+static GOptionEntry entries[] = {
 	{ "version", 'v', 0, G_OPTION_ARG_NONE, &showVersion,
 	  "Display version information", NULL },
 	{ NULL }
 };
 
-
 /* gtk3 dockapp code based on wmpasman by Brad Jorsch
  * <anomie@users.sourceforge.net>
  * http://sourceforge.net/projects/wmpasman */
 
-GtkWidget *cria_dock(GtkWidget *mw, unsigned int s) {
+GtkWidget *cria_dock(GtkWidget *mw, unsigned int s)
+{
 	GdkDisplay *display;
 	GtkWidget *foobox;
 
@@ -70,39 +69,43 @@ GtkWidget *cria_dock(GtkWidget *mw, unsigned int s) {
 	gtk_widget_realize(foobox);
 
 	Display *d = GDK_DISPLAY_XDISPLAY(display);
-        Window mainwin = GDK_WINDOW_XID(gtk_widget_get_window(mw));
-        Window iw = GDK_WINDOW_XID(gtk_widget_get_window(foobox));
-        Window p, dummy1, *dummy2;
-        unsigned int dummy3;
-        XQueryTree(d, mainwin, &dummy1, &p, &dummy2, &dummy3);
-        if (dummy2) XFree(dummy2);
-        Window w = XCreateSimpleWindow(d, p, 0, 0, 1, 1, 0, 0, 0);
-        XReparentWindow(d, mainwin, w, 0, 0);
-        gtk_widget_show(mw);
-        gtk_widget_show(foobox);
-        XWMHints *wmHints = XGetWMHints(d, mainwin);
-        if (!wmHints) {
-            wmHints = XAllocWMHints();
-        }
-        wmHints->flags |= IconWindowHint;
-        wmHints->icon_window = iw;
-        XSetWMHints(d, mainwin, wmHints);
-        XFree(wmHints);
-        XReparentWindow(d, mainwin, p, 0, 0);
-        XDestroyWindow(d, w);
+	Window mainwin = GDK_WINDOW_XID(gtk_widget_get_window(mw));
+	Window iw = GDK_WINDOW_XID(gtk_widget_get_window(foobox));
+	Window p, dummy1, *dummy2;
+	unsigned int dummy3;
+	XQueryTree(d, mainwin, &dummy1, &p, &dummy2, &dummy3);
+	if (dummy2)
+		XFree(dummy2);
+	Window w = XCreateSimpleWindow(d, p, 0, 0, 1, 1, 0, 0, 0);
+	XReparentWindow(d, mainwin, w, 0, 0);
+	gtk_widget_show(mw);
+	gtk_widget_show(foobox);
+	XWMHints *wmHints = XGetWMHints(d, mainwin);
+	if (!wmHints)
+		wmHints = XAllocWMHints();
+	wmHints->flags |= IconWindowHint;
+	wmHints->icon_window = iw;
+	XSetWMHints(d, mainwin, wmHints);
+	XFree(wmHints);
+	XReparentWindow(d, mainwin, p, 0, 0);
+	XDestroyWindow(d, w);
 
 	return foobox;
 }
 
-void fecha(void) {
+void fecha(void)
+{
 	gtk_widget_destroy(dialog);
 	dialog = NULL;
 }
 
-void handle_click(GtkWidget *widget, char *method) {
+void handle_click(GtkWidget *widget, gpointer data)
+{
 	GDBusConnection *connection;
 	GDBusMessage *message, *reply;
 	GError *error = NULL;
+
+	gchar *method = (gchar *)data;
 
 	connection = g_bus_get_sync(G_BUS_TYPE_SYSTEM, NULL, &error);
 	message = g_dbus_message_new_method_call(
@@ -139,9 +142,12 @@ void handle_click(GtkWidget *widget, char *method) {
 	g_object_unref(connection);
 }
 
-void button_press(GtkWidget *widget, GdkEvent *event) {
+void button_press(GtkWidget *widget, GdkEvent *event)
+{
 	GtkWidget *label;
-	gint result;
+	GtkWidget *halt_button;
+	GtkWidget *reboot_button;
+	GtkWidget *cancel_button;
 
 	GdkEventButton  *bevent = (GdkEventButton *)event;
 	switch (bevent->button) {
@@ -153,62 +159,68 @@ void button_press(GtkWidget *widget, GdkEvent *event) {
 		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(
 							GTK_DIALOG(dialog))),
 				  label);
-		gtk_widget_show(label);
+
 		gtk_dialog_add_buttons(GTK_DIALOG(dialog),
 				       "Halt", GTK_RESPONSE_HALT,
 				       "Reboot", GTK_RESPONSE_REBOOT,
 				       "Cancel", GTK_RESPONSE_CANCEL, NULL);
+		halt_button = gtk_dialog_get_widget_for_response(
+			GTK_DIALOG(dialog),
+			GTK_RESPONSE_HALT);
+		reboot_button = gtk_dialog_get_widget_for_response(
+			GTK_DIALOG(dialog),
+			GTK_RESPONSE_REBOOT);
+		cancel_button = gtk_dialog_get_widget_for_response(
+			GTK_DIALOG(dialog),
+			GTK_RESPONSE_CANCEL);
 
 		g_signal_connect(dialog, "destroy", G_CALLBACK(fecha), NULL);
-
-		result = gtk_dialog_run(GTK_DIALOG (dialog));
-		switch (result) {
-		case GTK_RESPONSE_HALT:
-			handle_click(dialog, HALT_METHOD);
-			break;
-		case GTK_RESPONSE_REBOOT:
-			handle_click(dialog, REBOOT_METHOD);
-			break;
-		case GTK_RESPONSE_CANCEL:
-			fecha();
-			break;
-		default:
-			break;
-		}
+		g_signal_connect(cancel_button,
+				 "clicked",
+				 G_CALLBACK(fecha),
+				 (gpointer) dialog);
+		g_signal_connect(halt_button,
+				 "clicked",
+				 G_CALLBACK(handle_click),
+				 HALT_METHOD);
+		g_signal_connect(reboot_button,
+				 "clicked",
+				 G_CALLBACK(handle_click),
+				 REBOOT_METHOD);
+		gtk_widget_show_all(dialog);
+		break;
 	default:
 		break;
 	}
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 	GError *error = NULL;
 	GOptionContext *context;
 	GtkWidget *gtkiw;
 	GtkWidget *dockArea;
 	GtkWidget *pixmap;
 
-
 	gtk_init(&argc, &argv);
 
-	context = g_option_context_new ("- dockapp to shutdown or reboot your "
-					"machine");
-	g_option_context_add_main_entries (context, entries, NULL);
-	g_option_context_add_group (context, gtk_get_option_group (TRUE));
-	g_option_context_parse (context, &argc, &argv, &error);
+	context = g_option_context_new(
+		"- dockapp to shutdown or reboot your machine");
+	g_option_context_add_main_entries(context, entries, NULL);
+	g_option_context_add_group(context, gtk_get_option_group(TRUE));
+	g_option_context_parse(context, &argc, &argv, &error);
 
 	if (showVersion) {
-		printf("wmforecast "VERSION"\n");
+		printf(PACKAGE_STRING"\n");
 		return 0;
 	}
-
 
 	gtkiw = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	dockArea = cria_dock(gtkiw, 47);
 
-
 	pixmap = gtk_image_new_from_file(DATADIR"/wmshutdown.xpm");
-        gtk_widget_show(pixmap);
-        gtk_container_add(GTK_CONTAINER(dockArea), pixmap);
+	gtk_widget_show(pixmap);
+	gtk_container_add(GTK_CONTAINER(dockArea), pixmap);
 
 	gtk_widget_add_events(dockArea, GDK_BUTTON_PRESS_MASK);
 	g_signal_connect(dockArea, "button-press-event",
@@ -216,5 +228,5 @@ int main(int argc, char *argv[]) {
 
 	gtk_main();
 
-    	return(0);
+	return 0;
 }

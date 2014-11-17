@@ -1,3 +1,11 @@
+wmshutdown (1.3-3) UNRELEASED; urgency=medium
+
+  * debian/rules
+    - Append "-Wl,--as-needed" to LDFLAGS; avoids "useless dependency" warnings
+      from dpkg-shlibdeps.
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Mon, 17 Nov 2014 11:05:00 -0600
+
 wmshutdown (1.3-2) unstable; urgency=medium
 
   * debian/control

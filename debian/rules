@@ -12,4 +12,8 @@ override_dh_auto_configure:
 endif
 
 get-orig-source:
-	uscan --verbose --force-download --rename
+	uscan --verbose --force-download --no-symlink
+	@if test -e ../wmshutdown-*.download ; then \
+		rename -f -v "s/wmshutdown-(.+)\.download/wmshutdown_\1\.orig\.tar\.gz/" \
+			../wmshutdown-*.download; \
+	fi

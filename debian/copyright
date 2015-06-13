@@ -1,7 +1,8 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name: wmshutdown
-Upstream-Contact: Doug Torrance <dtorrance@monmouthcollege.edu>
-Source: https://github.com/d-torrance/wmshutdown
+Upstream-Contact: Window Maker Developers Team
+ <wmaker-dev@lists.windowmaker.org>
+Source: http://windowmaker.org/dockapps/?name=wmshutdown
 
 Files: *
 Copyright:

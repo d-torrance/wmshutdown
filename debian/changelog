@@ -1,10 +1,20 @@
-wmshutdown (1.3-3) UNRELEASED; urgency=medium
+wmshutdown (1.4-1) unstable; urgency=medium
 
+  * New upstream release.
+  * debian/control
+    - Update Homepage.
+  * debian/copyright
+    - Update Upstream-Contact and Source.
   * debian/rules
     - Append "-Wl,--as-needed" to LDFLAGS; avoids "useless dependency" warnings
       from dpkg-shlibdeps.
+    - Update get-orig-source target for new location.
+  * debian/upstream/signing-key.asc
+    - Remove file; upstream no longer signs releases.
+  * debian/watch
+    - Update with new location.
 
- -- Doug Torrance <dtorrance@monmouthcollege.edu>  Mon, 17 Nov 2014 11:05:00 -0600
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sat, 13 Jun 2015 13:46:04 -0500
 
 wmshutdown (1.3-2) unstable; urgency=medium
 
